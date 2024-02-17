@@ -52,4 +52,20 @@ function getProfile() {
   return promise;
 }
 
-export { register, login, getProfile };
+function getUsers() {
+  const promise = new Promise((resolve, reject) => {
+    fetch(`${API_BASE_URL}/users`)
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.status === "success") {
+          resolve(res.data.users);
+        } else {
+          const err = new Error(err);
+          reject(err);
+        }
+      });
+  });
+  return promise;
+}
+
+export { register, login, getProfile, getUsers };
