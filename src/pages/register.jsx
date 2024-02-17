@@ -45,7 +45,7 @@ export default function Register() {
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Create New Account</title>
+        <title>Register | Komunal</title>
       </Head>
 
       <form action="" onSubmit={submitRegister}>
@@ -73,6 +73,7 @@ export default function Register() {
           required
           type={passwordVisible ? "text" : "password"}
           name="password"
+          min={6}
           value={password}
           onChange={setPassword}
         />
