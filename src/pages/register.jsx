@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
+import { RegisterForm } from "../components/RegisterForm";
 import { useInput } from "../hooks/useInput";
 import { register } from "../utils/users";
 
@@ -16,7 +17,7 @@ export default function Register() {
   const [password, setPassword] = useInput("");
   const [passwordVisible, setPasswordVisible] = useState(false);
 
-  function togglePasswordVisibility() {
+  function setPasswordVisibility() {
     setPasswordVisible(!passwordVisible);
   }
 
@@ -47,45 +48,20 @@ export default function Register() {
         <title>Register | Komunal</title>
       </Head>
 
-      <form action="" onSubmit={submitRegister}>
-        <input
-          required
-          type="text"
-          name="name"
-          placeholder="John Doe"
-          autoComplete="off"
-          value={name}
-          onChange={setName}
-        />
-
-        <input
-          required
-          type="email"
-          name="email"
-          placeholder="example@gmail.com"
-          autoComplete="off"
-          value={email}
-          onChange={setEmail}
-        />
-
-        <input
-          required
-          type={passwordVisible ? "text" : "password"}
-          name="password"
-          min={6}
-          value={password}
-          onChange={setPassword}
-        />
-
-        <button type="button" onClick={togglePasswordVisibility}>
-          Toggle Password Visible
-        </button>
-
-        {error.status !== "success" && <p>{error.message}</p>}
-        {loading && <p>LOADING...</p>}
-
-        <button type="submit">Register</button>
-      </form>
+      <RegisterForm
+        submitRegister={submitRegister}
+        name={name}
+        setName={setName}
+        email={email}
+        setEmail={setEmail}
+        password={password}
+        setPassword={setPassword}
+        passwordVisible={passwordVisible}
+        setPasswordVisibility={setPasswordVisibility}
+        error={error.status !== "success"}
+        errorMessage={error.message}
+        loading={loading}
+      />
     </>
   );
 }

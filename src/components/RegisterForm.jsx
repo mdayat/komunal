@@ -12,8 +12,10 @@ import {
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-const loginFormPropTypes = {
-  submitLogin: PropTypes.func.isRequired,
+const registerFormPropTypes = {
+  submitRegister: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  setName: PropTypes.func.isRequired,
   email: PropTypes.string.isRequired,
   setEmail: PropTypes.func.isRequired,
   password: PropTypes.string.isRequired,
@@ -25,8 +27,10 @@ const loginFormPropTypes = {
   loading: PropTypes.bool.isRequired,
 };
 
-function LoginForm({
-  submitLogin,
+function RegisterForm({
+  submitRegister,
+  name,
+  setName,
   email,
   setEmail,
   password,
@@ -37,6 +41,7 @@ function LoginForm({
   errorMessage,
   loading,
 }) {
+  const nameHelperText = error ? errorMessage : "Please enter your name";
   const emailHelperText = error ? errorMessage : "Please enter your email";
   const passwordHelperText = error
     ? errorMessage
@@ -49,11 +54,28 @@ function LoginForm({
         maxWidth="xs"
         autoComplete="off"
         sx={{ boxShadow: 3, padding: 3, marginTop: 8 }}
-        onSubmit={submitLogin}
+        onSubmit={submitRegister}
       >
         <Typography variant="h4" component="h1" sx={{ marginBottom: 3 }}>
-          Sign in
+          Sign up
         </Typography>
+
+        <TextField
+          fullWidth
+          required
+          data-testid="name"
+          type="text"
+          id="name"
+          label="Name"
+          variant="outlined"
+          size="small"
+          margin="normal"
+          sx={{ marginTop: 0 }}
+          error={error}
+          helperText={nameHelperText}
+          value={name}
+          onChange={setName}
+        />
 
         <TextField
           fullWidth
@@ -65,7 +87,6 @@ function LoginForm({
           variant="outlined"
           size="small"
           margin="normal"
-          sx={{ marginTop: 0 }}
           error={error}
           helperText={emailHelperText}
           value={email}
@@ -121,6 +142,6 @@ function LoginForm({
   );
 }
 
-LoginForm.propTypes = loginFormPropTypes;
+RegisterForm.propTypes = registerFormPropTypes;
 
-export { LoginForm };
+export { RegisterForm };
