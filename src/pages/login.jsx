@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 
+import { LoginForm } from "../components/LoginForm";
 import { useInput } from "../hooks/useInput";
 import { asyncSetAuthUser } from "../states/authUser/action";
 
@@ -16,7 +17,7 @@ export default function Login() {
   const [password, setPassword] = useInput("");
   const [passwordVisible, setPasswordVisible] = useState(false);
 
-  function togglePasswordVisibility() {
+  function setPasswordVisibility() {
     setPasswordVisible(!passwordVisible);
   }
 
@@ -41,39 +42,21 @@ export default function Login() {
   return (
     <>
       <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Login | Komunal</title>
       </Head>
 
-      <form action="" onSubmit={submitLogin}>
-        <input
-          required
-          type="email"
-          name="email"
-          placeholder="example@gmail.com"
-          autoComplete="off"
-          value={email}
-          onChange={setEmail}
-        />
-
-        <input
-          required
-          name="password"
-          min={6}
-          type={passwordVisible ? "text" : "password"}
-          value={password}
-          onChange={setPassword}
-        />
-
-        <button type="button" onClick={togglePasswordVisibility}>
-          Toggle Password Visible
-        </button>
-
-        {error.status !== "success" && <p>{error.message}</p>}
-        {loading && <p>LOADING...</p>}
-
-        <button type="submit">Login</button>
-      </form>
+      <LoginForm
+        submitLogin={submitLogin}
+        email={email}
+        setEmail={setEmail}
+        password={password}
+        setPassword={setPassword}
+        passwordVisible={passwordVisible}
+        setPasswordVisibility={setPasswordVisibility}
+        error={error.status !== "success"}
+        errorMessage={error.message}
+        loading={loading}
+      />
     </>
   );
 }
