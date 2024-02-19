@@ -7,6 +7,7 @@ import {
   IconButton,
   InputAdornment,
   TextField,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
@@ -89,13 +90,17 @@ function LoginForm({
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  edge="end"
-                  onClick={setPasswordVisibility}
+                <Tooltip
+                  title={passwordVisible ? "Hide Password" : "Show Password"}
                 >
-                  {passwordVisible ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    edge="end"
+                    onClick={setPasswordVisibility}
+                  >
+                    {passwordVisible ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </Tooltip>
               </InputAdornment>
             ),
           }}

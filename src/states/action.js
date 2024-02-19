@@ -2,16 +2,11 @@ import { getThreads } from "../utils/threads";
 import { getUsers } from "../utils/users";
 
 // Actions
-import {
-  setLoadingActionCreator,
-  unsetLoadingActionCreator,
-} from "./loading/action";
 import { getThreadsActionCreator } from "./threads/action";
 import { getUsersActionCreator } from "./users/action";
 
-function asyncGetUsersAndThreads() {
+function asyncGetUsersAndThreads(callback) {
   return (dispatch) => {
-    dispatch(setLoadingActionCreator());
     Promise.all([getUsers(), getThreads()])
       .then(([users, threads]) => {
         dispatch(getUsersActionCreator(users));
@@ -23,7 +18,7 @@ function asyncGetUsersAndThreads() {
         }
       })
       .finally(() => {
-        dispatch(unsetLoadingActionCreator());
+        callback();
       });
   };
 }

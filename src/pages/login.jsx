@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { LoginForm } from "../components/LoginForm";
 import { useInput } from "../hooks/useInput";
@@ -10,7 +10,7 @@ import { asyncSetAuthUser } from "../states/authUser/action";
 export default function Login() {
   const { push } = useRouter();
   const [error, setError] = useState({ status: "success", message: "" });
-  const loading = useSelector((states) => states.loading);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   const [email, setEmail] = useInput("");
@@ -28,6 +28,7 @@ export default function Login() {
       password,
     };
 
+    setLoading(true);
     dispatch(
       asyncSetAuthUser(user, (res) => {
         if (res.status === "success") {
@@ -35,6 +36,7 @@ export default function Login() {
         } else {
           setError(res);
         }
+        setLoading(false);
       })
     );
   }
