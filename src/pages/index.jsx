@@ -1,8 +1,19 @@
 import Head from "next/head";
-import { useEffect } from "react";
+import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Button, Typography } from "@mui/material";
 
 import { asyncGetUsersAndThreads } from "../states/action";
+
+import styles from "../styles/home.module.css";
+import { Loading as ThreadItemLoading } from "../components/ThreadItem/Loading";
+
+// Lazy loaded components
+const Snackbar = dynamic(() => import("@mui/material/Snackbar"));
+const ThreadItem = dynamic(() =>
+  import("../components/ThreadItem").then((threadItem) => threadItem.ThreadItem)
+);
 
 function getThreadOwner(users, ownerID) {
   const threadOwner = { id: "", name: "", avatar: "" };
@@ -18,20 +29,46 @@ function getThreadOwner(users, ownerID) {
 }
 
 export default function Home() {
+  const [loading, setLoading] = useState(true);
+  const [dialogOpened, setDialogOpened] = useState(false);
+
   const users = useSelector((states) => states.users);
   const threads = useSelector((states) => states.threads);
-  const loading = useSelector((states) => states.loading);
+  const authUser = useSelector((states) => states.authUser);
   const dispatch = useDispatch();
 
+  function openDialog() {
+    setDialogOpened(true);
+  }
+
+  function closeDialog() {
+    setDialogOpened(false);
+  }
+
   useEffect(() => {
-    dispatch(asyncGetUsersAndThreads());
+    dispatch(
+      asyncGetUsersAndThreads(() => {
+        setLoading(false);
+      })
+    );
   }, [dispatch]);
 
   let threadList = [];
   if (users.length !== 0 && threads.length !== 0) {
     threadList = threads.map((thread) => {
       const threadOwner = getThreadOwner(users, thread.ownerId);
-      return { ...thread, owner: threadOwner };
+      // I'm not using spread operator because i don't need "ownerId" property
+      return {
+        id: thread.id,
+        title: thread.title,
+        body: thread.body,
+        category: thread.category,
+        createdAt: thread.createdAt,
+        upVotesBy: thread.upVotesBy,
+        downVotesBy: thread.downVotesBy,
+        totalComments: thread.totalComments,
+        owner: threadOwner,
+      };
     });
   }
 
@@ -41,7 +78,35 @@ export default function Home() {
         <title>Komunal | Komunikasi Massal</title>
       </Head>
 
-      <main>{loading && <p>LOADING...</p>}</main>
+      <section className={styles.threadListHeader}>
+        <Typography
+          variant="h5"
+          component="h1"
+          sx={{ fontWeight: 600, lineHeight: "normal" }}
+        >
+          All Threads
+        </Typography>
+
+        <Button disableElevation variant="contained" onClick={openDialog}>
+          New Thread
+        </Button>
+
+        {authUser === null && dialogOpened && (
+          <Snackbar
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            open={dialogOpened}
+            onClose={closeDialog}
+            autoHideDuration={5000}
+            message="You need to login before create a thread"
+          />
+        )}
+      </section>
+
+      {loading ? (
+        <ThreadItemLoading />
+      ) : (
+        threadList.map((thread) => <ThreadItem key={thread.id} {...thread} />)
+      )}
     </>
   );
 }
