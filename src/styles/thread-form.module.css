@@ -1,0 +1,9 @@
+.threadForm {
+  padding: 0 24px 24px;
+}
+.threadForm__actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}

@@ -15,6 +15,11 @@ const Snackbar = dynamic(() => import("@mui/material/Snackbar"));
 const ThreadItem = dynamic(() =>
   import("../components/ThreadItem").then((threadItem) => threadItem.ThreadItem)
 );
+const CreateThread = dynamic(() =>
+  import("../components/CreateThread").then(
+    (threadItem) => threadItem.CreateThread
+  )
+);
 
 function getThreadOwner(users, ownerID) {
   const threadOwner = { id: "", name: "", avatar: "" };
@@ -92,6 +97,10 @@ export default function Home() {
         <Button disableElevation variant="contained" onClick={openDialog}>
           New Thread
         </Button>
+
+        {authUser !== null && dialogOpened && (
+          <CreateThread dialogOpened={dialogOpened} closeDialog={closeDialog} />
+        )}
 
         {authUser === null && dialogOpened && (
           <Snackbar

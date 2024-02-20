@@ -16,7 +16,7 @@ function setAuthUserActionCreator(authUser) {
 
 function unsetAuthUserActionCreator() {
   return {
-    type: ACTION_TYPE.SET_AUTH_USER,
+    type: ACTION_TYPE.UNSET_AUTH_USER,
   };
 }
 

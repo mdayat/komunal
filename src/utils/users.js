@@ -60,7 +60,7 @@ function getUsers() {
         if (res.status === "success") {
           resolve(res.data.users);
         } else {
-          const err = new Error(err);
+          const err = new Error(res.message);
           reject(err);
         }
       });
