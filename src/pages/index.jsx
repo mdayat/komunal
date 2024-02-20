@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Typography } from "@mui/material";
 
+import { Loading as ThreadItemLoading } from "../components/ThreadItem/Loading";
 import { asyncGetUsersAndThreads } from "../states/action";
+import { asyncPreloadProcess } from "../states/preload/action";
 
 import styles from "../styles/home.module.css";
-import { Loading as ThreadItemLoading } from "../components/ThreadItem/Loading";
 
 // Lazy loaded components
 const Snackbar = dynamic(() => import("@mui/material/Snackbar"));
@@ -46,6 +47,7 @@ export default function Home() {
   }
 
   useEffect(() => {
+    dispatch(asyncPreloadProcess());
     dispatch(
       asyncGetUsersAndThreads(() => {
         setLoading(false);

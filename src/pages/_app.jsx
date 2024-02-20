@@ -1,9 +1,10 @@
 import Head from "next/head";
 import { Roboto } from "next/font/google";
-import { Container, CssBaseline } from "@mui/material";
+import { CssBaseline } from "@mui/material";
 import { Provider } from "react-redux";
 
 import { store } from "../states";
+import "../styles/global.css";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -19,9 +20,9 @@ export default function App({ Component, pageProps }) {
       </Head>
       <CssBaseline />
       <Provider store={store}>
-        <Container component="main" maxWidth="xl" className={roboto.className}>
+        <main className={roboto.className}>
           <Component {...pageProps} />
-        </Container>
+        </main>
       </Provider>
     </>
   );

@@ -1,17 +1,23 @@
+import dynamic from "next/dynamic";
 import PropTypes from "prop-types";
 import {
-  Backdrop,
   Button,
-  CircularProgress,
-  Container,
   IconButton,
   InputAdornment,
   TextField,
   Tooltip,
   Typography,
 } from "@mui/material";
-import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+
+import styles from "../styles/login-register.module.css";
+
+// Dynamic loaded components
+const Visibility = dynamic(() => import("@mui/icons-material/Visibility"));
+const Backdrop = dynamic(() => import("@mui/material/Backdrop"));
+const CircularProgress = dynamic(
+  () => import("@mui/material/CircularProgress")
+);
 
 const registerFormPropTypes = {
   submitRegister: PropTypes.func.isRequired,
@@ -50,11 +56,10 @@ function RegisterForm({
 
   return (
     <>
-      <Container
-        component="form"
-        maxWidth="xs"
+      <form
+        action=""
         autoComplete="off"
-        sx={{ boxShadow: 3, padding: 3, marginTop: 8 }}
+        className={styles.loginRegisterForm}
         onSubmit={submitRegister}
       >
         <Typography variant="h4" component="h1" sx={{ marginBottom: 3 }}>
@@ -138,11 +143,13 @@ function RegisterForm({
         >
           Login
         </Button>
-      </Container>
+      </form>
 
-      <Backdrop open={loading}>
-        <CircularProgress size={64} sx={{ color: "#fff" }} />
-      </Backdrop>
+      {loading && (
+        <Backdrop open={loading}>
+          <CircularProgress size={64} sx={{ color: "#fff" }} />
+        </Backdrop>
+      )}
     </>
   );
 }
