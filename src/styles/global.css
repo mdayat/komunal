@@ -3,3 +3,8 @@ main {
   margin: 64px auto;
   padding: 0 32px;
 }
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}

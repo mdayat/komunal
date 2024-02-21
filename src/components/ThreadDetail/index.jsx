@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Avatar, Divider, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import parse from "html-react-parser";
@@ -10,42 +9,41 @@ import { owner as threadOwner } from "../../types/owner";
 
 import styles from "../../styles/thread.module.css";
 
-const threadItemPropTypes = {
-  ...threadPropTypes,
-  owner: PropTypes.shape({ ...threadOwner }).isRequired,
+const threadDetailPropTypes = {
+  title: threadPropTypes.title,
+  body: threadPropTypes.body,
+  category: threadPropTypes.category,
+  createdAt: threadPropTypes.createdAt,
+  upVotesBy: threadPropTypes.upVotesBy,
+  downVotesBy: threadPropTypes.downVotesBy,
+  owner: PropTypes.shape({ ...threadOwner }),
 };
 
-function ThreadItem({
-  id,
+function ThreadDetail({
   title,
   body,
   category,
   createdAt,
   upVotesBy,
   downVotesBy,
-  totalComments,
   owner,
 }) {
   return (
-    <article className={styles.threadItem}>
+    <article className={styles.threadDetail}>
       <div className={styles.threadHeader}>
         <div className={styles.threadHeader__profile}>
-          <Avatar
-            alt={owner.name}
-            src={owner.avatar}
-            sx={{ width: 32, height: 32 }}
-          />
+          <Avatar alt={owner.name} src={owner.avatar} />
 
           <Typography
-            variant="subtitle1"
-            component="h3"
-            sx={{ fontWeight: 500 }}
+            variant="h6"
+            component="h2"
+            sx={{ fontWeight: 500, lineHeight: "normal" }}
           >
             {owner.name}
           </Typography>
         </div>
 
-        <Typography variant="caption">
+        <Typography variant="body2">
           <time dateTime={formatISODateString(createdAt)}>
             {showFormattedDate(createdAt)}
           </time>
@@ -53,19 +51,14 @@ function ThreadItem({
       </div>
 
       <Typography
-        gutterBottom
-        variant="h6"
-        component="h2"
-        sx={{ fontWeight: 600, lineHeight: "28px" }}
+        variant="h5"
+        component="h1"
+        sx={{ fontWeight: 600, marginBottom: 2 }}
       >
-        <Link href={`/threads/${id}`}>{title}</Link>
+        {title}
       </Typography>
 
-      <Typography
-        variant="body1"
-        component="div"
-        className={styles.truncateText}
-      >
+      <Typography variant="body1" component="div">
         {parse(body)}
       </Typography>
 
@@ -73,7 +66,6 @@ function ThreadItem({
         category={category}
         upVotesBy={upVotesBy}
         downVotesBy={downVotesBy}
-        totalComments={totalComments}
       />
 
       <Divider sx={{ marginTop: 2 }} />
@@ -81,6 +73,6 @@ function ThreadItem({
   );
 }
 
-ThreadItem.propTypes = threadItemPropTypes;
+ThreadDetail.propTypes = threadDetailPropTypes;
 
-export { ThreadItem };
+export { ThreadDetail };

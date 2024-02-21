@@ -8,7 +8,7 @@ import { Loading as ThreadItemLoading } from "../components/ThreadItem/Loading";
 import { asyncGetUsersAndThreads } from "../states/action";
 import { asyncPreloadProcess } from "../states/preload/action";
 
-import styles from "../styles/home.module.css";
+import styles from "../styles/thread.module.css";
 
 // Lazy loaded components
 const Snackbar = dynamic(() => import("@mui/material/Snackbar"));

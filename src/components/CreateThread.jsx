@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import { useInput } from "../hooks/useInput";
 import { asyncCreateThread } from "../states/threads/action";
 
-import styles from "../styles/thread-form.module.css";
+import styles from "../styles/thread.module.css";
 
 // Dynamic loaded components
 const Backdrop = dynamic(() => import("@mui/material/Backdrop"));

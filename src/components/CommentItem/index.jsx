@@ -1,33 +1,24 @@
-import Link from "next/link";
 import { Avatar, Divider, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import parse from "html-react-parser";
 
 import { Footer } from "./Footer";
 import { formatISODateString, showFormattedDate } from "../../utils/date";
-import { threadPropTypes } from "../../types/thread";
-import { owner as threadOwner } from "../../types/owner";
+import { commentPropTypes } from "../../types/comment";
+import { owner } from "../../types/owner";
 
 import styles from "../../styles/thread.module.css";
 
-const threadItemPropTypes = {
-  ...threadPropTypes,
-  owner: PropTypes.shape({ ...threadOwner }).isRequired,
-};
-
-function ThreadItem({
-  id,
+function CommentItem({
   title,
-  body,
-  category,
+  content,
   createdAt,
   upVotesBy,
   downVotesBy,
-  totalComments,
   owner,
 }) {
   return (
-    <article className={styles.threadItem}>
+    <article>
       <div className={styles.threadHeader}>
         <div className={styles.threadHeader__profile}>
           <Avatar
@@ -58,29 +49,22 @@ function ThreadItem({
         component="h2"
         sx={{ fontWeight: 600, lineHeight: "28px" }}
       >
-        <Link href={`/threads/${id}`}>{title}</Link>
+        {title}
       </Typography>
 
-      <Typography
-        variant="body1"
-        component="div"
-        className={styles.truncateText}
-      >
-        {parse(body)}
+      <Typography variant="body1" component="div">
+        {parse(content)}
       </Typography>
 
-      <Footer
-        category={category}
-        upVotesBy={upVotesBy}
-        downVotesBy={downVotesBy}
-        totalComments={totalComments}
-      />
-
-      <Divider sx={{ marginTop: 2 }} />
+      <Footer upVotesBy={upVotesBy} downVotesBy={downVotesBy} />
+      <Divider sx={{ marginTop: 1 }} />
     </article>
   );
 }
 
-ThreadItem.propTypes = threadItemPropTypes;
+CommentItem.propTypes = {
+  ...commentPropTypes,
+  owner: PropTypes.shape({ ...owner }).isRequired,
+};
 
-export { ThreadItem };
+export { CommentItem };

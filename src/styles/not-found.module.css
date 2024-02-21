@@ -1,0 +1,8 @@
+.notFoundContainer {
+  max-width: 600px;
+  margin: 64px auto 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+  align-items: center;
+}

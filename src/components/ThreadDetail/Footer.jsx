@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { Chip } from "@mui/material";
+import { useSelector } from "react-redux";
+import { Chip, IconButton, Tooltip } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
-import SmsIcon from "@mui/icons-material/Sms";
-import { useSelector } from "react-redux";
 
 import { threadPropTypes } from "../../types/thread";
 import styles from "../../styles/thread.module.css";
@@ -12,10 +11,9 @@ const threadFooterPropTypes = {
   category: threadPropTypes.category,
   upVotesBy: threadPropTypes.upVotesBy,
   downVotesBy: threadPropTypes.downVotesBy,
-  totalComments: threadPropTypes.totalComments,
 };
 
-function Footer({ category, upVotesBy, downVotesBy, totalComments }) {
+function Footer({ category, upVotesBy, downVotesBy }) {
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
   const authUser = useSelector((states) => states.authUser);
@@ -38,26 +36,32 @@ function Footer({ category, upVotesBy, downVotesBy, totalComments }) {
   }, [authUser, upVotesBy, downVotesBy]);
 
   return (
-    <div className={`${styles.threadFooter} ${styles.threadItemFooter}`}>
+    <div className={`${styles.threadFooter} ${styles.threadDetailFooter}`}>
       <div
-        className={`${styles.threadFooter__impression} ${styles.threadItemFooter__impression}`}
+        className={`${styles.threadFooter__impression} ${styles.threadDetailFooter__impression}`}
       >
         <div>
-          <ThumbUpIcon color={liked ? "primary" : "action"} fontSize="small" />
+          <Tooltip title="Like">
+            <IconButton aria-label="like">
+              <ThumbUpIcon
+                color={liked ? "primary" : "action"}
+                fontSize="small"
+              />
+            </IconButton>
+          </Tooltip>
           <span>{upVotesBy.length}</span>
         </div>
 
         <div>
-          <ThumbDownIcon
-            color={disliked ? "primary" : "action"}
-            fontSize="small"
-          />
+          <Tooltip title="Dislike">
+            <IconButton aria-label="dislike">
+              <ThumbDownIcon
+                color={disliked ? "primary" : "action"}
+                fontSize="small"
+              />
+            </IconButton>
+          </Tooltip>
           <span>{downVotesBy.length}</span>
-        </div>
-
-        <div>
-          <SmsIcon color="action" fontSize="small" />
-          <span>{totalComments}</span>
         </div>
       </div>
 

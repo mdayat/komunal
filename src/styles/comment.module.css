@@ -1,0 +1,11 @@
+.commentListContainer {
+  max-width: 600px;
+  margin: 32px auto 0;
+}
+
+.commentFooter {
+  display: flex;
+  align-items: center;
+  gap: 0 16px;
+  margin-left: -8px;
+}

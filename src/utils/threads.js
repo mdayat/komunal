@@ -1,21 +1,5 @@
 import { API_BASE_URL } from "./config";
 
-function getThreads() {
-  const promise = new Promise((resolve, reject) => {
-    fetch(`${API_BASE_URL}/threads`)
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.status === "success") {
-          resolve(res.data.threads);
-        } else {
-          const err = new Error(res.message);
-          reject(err);
-        }
-      });
-  });
-  return promise;
-}
-
 function createThread(thread) {
   const promise = new Promise((resolve, reject) => {
     const accessToken = localStorage.getItem("accessToken");
@@ -40,4 +24,37 @@ function createThread(thread) {
   return promise;
 }
 
-export { getThreads, createThread };
+function getThreads() {
+  const promise = new Promise((resolve, reject) => {
+    fetch(`${API_BASE_URL}/threads`)
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.status === "success") {
+          resolve(res.data.threads);
+        } else {
+          const err = new Error(res.message);
+          reject(err);
+        }
+      });
+  });
+  return promise;
+}
+
+function getThread(threadID) {
+  const endpoint = `/threads/${threadID}`;
+  const promise = new Promise((resolve, reject) => {
+    fetch(API_BASE_URL + endpoint)
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.status === "success") {
+          resolve(res.data.detailThread);
+        } else {
+          const err = new Error(res.message);
+          reject(err);
+        }
+      });
+  });
+  return promise;
+}
+
+export { createThread, getThreads, getThread };
