@@ -10,6 +10,7 @@ import { owner as threadOwner } from "../../types/owner";
 import styles from "../../styles/thread.module.css";
 
 const threadDetailPropTypes = {
+  id: threadPropTypes.id,
   title: threadPropTypes.title,
   body: threadPropTypes.body,
   category: threadPropTypes.category,
@@ -20,6 +21,7 @@ const threadDetailPropTypes = {
 };
 
 function ThreadDetail({
+  id,
   title,
   body,
   category,
@@ -63,6 +65,7 @@ function ThreadDetail({
       </Typography>
 
       <Footer
+        id={id}
         category={category}
         upVotesBy={upVotesBy}
         downVotesBy={downVotesBy}

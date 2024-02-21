@@ -1,4 +1,5 @@
 import { API_BASE_URL } from "./config";
+import { votePromise } from "./vote";
 
 function createThread(thread) {
   const promise = new Promise((resolve, reject) => {
@@ -57,4 +58,26 @@ function getThread(threadID) {
   return promise;
 }
 
-export { createThread, getThreads, getThread };
+function upVoteThread(threadID) {
+  const endpoint = `/threads/${threadID}/up-vote`;
+  return votePromise(endpoint);
+}
+
+function downVoteThread(threadID) {
+  const endpoint = `/threads/${threadID}/down-vote`;
+  return votePromise(endpoint);
+}
+
+function neutralVoteThread(threadID) {
+  const endpoint = `/threads/${threadID}/neutral-vote`;
+  return votePromise(endpoint);
+}
+
+export {
+  createThread,
+  getThreads,
+  getThread,
+  upVoteThread,
+  downVoteThread,
+  neutralVoteThread,
+};

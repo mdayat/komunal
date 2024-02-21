@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { Loading as ThreadDetailLoading } from "../../components/ThreadDetail/Loading";
 import { asyncGetThreadDetailAndComments } from "../../states/action";
+import { asyncPreloadProcess } from "../../states/preload/action";
 
 // Dynamic loaded components
 const NotFound = dynamic(() =>
@@ -33,6 +34,7 @@ function ThreadDetailPage() {
   useEffect(() => {
     if (isReady) {
       setLoading(true);
+      dispatch(asyncPreloadProcess());
       dispatch(
         asyncGetThreadDetailAndComments(query.threadID, () => {
           setLoading(false);
@@ -58,6 +60,7 @@ function ThreadDetailPage() {
       ) : (
         <>
           <ThreadDetail
+            id={threadDetail.id}
             title={threadDetail.title}
             body={threadDetail.body}
             category={threadDetail.category}
