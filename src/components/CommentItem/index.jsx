@@ -10,6 +10,7 @@ import { owner } from "../../types/owner";
 import styles from "../../styles/thread.module.css";
 
 function CommentItem({
+  id,
   title,
   content,
   createdAt,
@@ -56,7 +57,7 @@ function CommentItem({
         {parse(content)}
       </Typography>
 
-      <Footer upVotesBy={upVotesBy} downVotesBy={downVotesBy} />
+      <Footer id={id} upVotesBy={upVotesBy} downVotesBy={downVotesBy} />
       <Divider sx={{ marginTop: 1 }} />
     </article>
   );

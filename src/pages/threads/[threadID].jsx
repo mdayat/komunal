@@ -33,7 +33,6 @@ function ThreadDetailPage() {
 
   useEffect(() => {
     if (isReady) {
-      setLoading(true);
       dispatch(asyncPreloadProcess());
       dispatch(
         asyncGetThreadDetailAndComments(query.threadID, () => {
