@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { IconButton, Tooltip } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
@@ -13,25 +13,27 @@ const commentItemFooterPropTypes = {
 };
 
 function Footer({ upVotesBy, downVotesBy }) {
-  const [liked, setLiked] = useState(false);
-  const [disliked, setDisliked] = useState(false);
   const authUser = useSelector((states) => states.authUser);
 
-  useEffect(() => {
+  const { liked, disliked } = useMemo(() => {
+    let liked = false;
+    let disliked = false;
+
     if (authUser !== null) {
-      // To check whether the thread is voted or not
       for (let i = 0; i < upVotesBy.length || i < downVotesBy.length; i++) {
         if (upVotesBy[i] === authUser.id) {
-          setLiked(true);
+          liked = true;
           break;
         }
 
         if (downVotesBy[i] === authUser.id) {
-          setDisliked(true);
+          disliked = true;
           break;
         }
       }
     }
+
+    return { liked, disliked };
   }, [authUser, upVotesBy, downVotesBy]);
 
   return (
