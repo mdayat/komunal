@@ -55,7 +55,7 @@ function Footer({ id, upVotesBy, downVotesBy }) {
     } else {
       dispatch(asyncUpVoteComment(id));
     }
-  }, [authUser.id, dispatch, id, upVotesBy]);
+  }, [authUser, dispatch, id, upVotesBy]);
 
   const handleDownVoteComment = useCallback(() => {
     const hasVoted = downVotesBy.includes(authUser.id);
@@ -64,7 +64,7 @@ function Footer({ id, upVotesBy, downVotesBy }) {
     } else {
       dispatch(asyncDownVoteComment(id));
     }
-  }, [authUser.id, dispatch, id, downVotesBy]);
+  }, [authUser, dispatch, id, downVotesBy]);
 
   const voteEnabled =
     authUser === null

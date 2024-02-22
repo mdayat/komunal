@@ -6,7 +6,6 @@ import { Button, Typography } from "@mui/material";
 
 import { Loading as ThreadItemLoading } from "../components/ThreadItem/Loading";
 import { asyncGetUsersAndThreads } from "../states/action";
-import { asyncPreloadProcess } from "../states/preload/action";
 
 import styles from "../styles/thread.module.css";
 
@@ -52,7 +51,6 @@ export default function Home() {
   }
 
   useEffect(() => {
-    dispatch(asyncPreloadProcess());
     dispatch(
       asyncGetUsersAndThreads(() => {
         setLoading(false);

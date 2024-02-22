@@ -1,9 +1,22 @@
+:root {
+  --primary: #1976d2;
+  --action: #757575;
+  --error: #d32f2f;
+}
+
 main {
   max-width: 1536px;
-  margin: 64px auto;
+  margin: 64px auto 96px;
   padding: 0 32px;
 }
 
+button {
+  background-color: inherit;
+  border: none;
+  padding: 0;
+  font-weight: bold;
+  cursor: pointer;
+}
 a {
   color: inherit;
   text-decoration: inherit;

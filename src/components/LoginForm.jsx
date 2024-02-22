@@ -125,7 +125,7 @@ function LoginForm({
       </form>
 
       {loading && (
-        <Backdrop open={loading}>
+        <Backdrop open={loading} sx={{ zIndex: 20 }}>
           <CircularProgress size={64} sx={{ color: "#fff" }} />
         </Backdrop>
       )}

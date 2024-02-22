@@ -3,7 +3,9 @@ import { Roboto } from "next/font/google";
 import { CssBaseline } from "@mui/material";
 import { Provider } from "react-redux";
 
+import { BottomNav } from "../layout/BottomNav";
 import { store } from "../states";
+
 import "../styles/global.css";
 
 const roboto = Roboto({
@@ -23,6 +25,7 @@ export default function App({ Component, pageProps }) {
         <main className={roboto.className}>
           <Component {...pageProps} />
         </main>
+        <BottomNav />
       </Provider>
     </>
   );

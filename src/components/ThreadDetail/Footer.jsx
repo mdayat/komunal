@@ -55,7 +55,7 @@ function Footer({ category, upVotesBy, downVotesBy }) {
     } else {
       dispatch(asyncUpVoteThread());
     }
-  }, [authUser.id, dispatch, upVotesBy]);
+  }, [authUser, dispatch, upVotesBy]);
 
   const handleDownVoteThread = useCallback(() => {
     const hasVoted = downVotesBy.includes(authUser.id);
@@ -64,7 +64,7 @@ function Footer({ category, upVotesBy, downVotesBy }) {
     } else {
       dispatch(asyncDownVoteThread());
     }
-  }, [authUser.id, dispatch, downVotesBy]);
+  }, [authUser, dispatch, downVotesBy]);
 
   const threadFooter__impression =
     authUser === null
