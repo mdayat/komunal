@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import { useSelector } from "react-redux";
 import { Typography } from "@mui/material";
 import PropTypes from "prop-types";
 
@@ -7,9 +8,13 @@ import { owner } from "../types/owner";
 
 import styles from "../styles/comment.module.css";
 
-// Dynamic loaded component
+// Dynamic loaded components
+const Alert = dynamic(() => import("@mui/material/Alert"));
 const CommentItem = dynamic(() =>
   import("./CommentItem").then((commentItem) => commentItem.CommentItem)
+);
+const CreateComment = dynamic(() =>
+  import("./CreateComment").then((createComment) => createComment.CreateComment)
 );
 
 const commentListPropTypes = {
@@ -22,12 +27,22 @@ const commentListPropTypes = {
 };
 
 function CommentList({ comments }) {
+  const authUser = useSelector((states) => states.authUser);
+
   return (
     <section className={styles.commentListContainer}>
+      {authUser === null ? (
+        <Alert variant="filled" severity="info">
+          Login to reply a thread
+        </Alert>
+      ) : (
+        <CreateComment />
+      )}
+
       <Typography
         variant="h6"
         component="h3"
-        sx={{ fontWeight: 600, marginBottom: 2 }}
+        sx={{ fontWeight: 600, marginTop: 3, marginBottom: 2 }}
       >
         Comments ({comments.length})
       </Typography>

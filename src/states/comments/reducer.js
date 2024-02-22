@@ -5,6 +5,9 @@ function commentsReducer(comments = [], action = {}) {
     case ACTION_TYPE.GET_COMMENTS:
       return action.payload.comments;
 
+    case ACTION_TYPE.CREATE_COMMENT:
+      return [action.payload.comment, ...comments];
+
     case ACTION_TYPE.UP_VOTE_COMMENT:
       return comments.map((comment) => {
         if (comment.id === action.payload.commentID) {

@@ -1,11 +1,26 @@
 .commentListContainer {
   max-width: 600px;
-  margin: 32px auto 0;
+  margin: 24px auto 0;
 }
 
 .commentFooter {
   display: flex;
   align-items: center;
   gap: 0 16px;
+  margin-top: 8px;
+}
+.commentFooter__voteEnabled {
   margin-left: -8px;
+}
+.commentFooter > * {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.commentFooter__voteDisabled > * {
+  gap: 0 8px;
+}
+
+.btnLink {
+  display: flex;
 }

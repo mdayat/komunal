@@ -1,4 +1,5 @@
 import {
+  createComment,
   downVoteComment,
   neutralVoteComment,
   upVoteComment,
@@ -6,9 +7,10 @@ import {
 
 const ACTION_TYPE = {
   GET_COMMENTS: "comments/get",
-  UP_VOTE_COMMENT: "voteComment/up",
-  DOWN_VOTE_COMMENT: "voteComment/down",
-  NEUTRAL_VOTE_COMMENT: "voteComment/neutral",
+  CREATE_COMMENT: "comments/create",
+  UP_VOTE_COMMENT: "comments/upVote",
+  DOWN_VOTE_COMMENT: "comments/downVote",
+  NEUTRAL_VOTE_COMMENT: "comments/neutralVote",
 };
 
 function getCommentsActionCreator(comments) {
@@ -16,6 +18,15 @@ function getCommentsActionCreator(comments) {
     type: ACTION_TYPE.GET_COMMENTS,
     payload: {
       comments,
+    },
+  };
+}
+
+function createCommentActionCreator(comment) {
+  return {
+    type: ACTION_TYPE.CREATE_COMMENT,
+    payload: {
+      comment,
     },
   };
 }
@@ -47,6 +58,22 @@ function neutralVoteCommentActionCreator(commentID, userID) {
       commentID,
       userID,
     },
+  };
+}
+
+function asyncCreateComment(comment, callback) {
+  return (dispatch, getState) => {
+    const threadID = getState().threadDetail.id;
+    createComment(comment, threadID)
+      .then((comment) => {
+        dispatch(createCommentActionCreator(comment));
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        callback();
+      });
   };
 }
 
@@ -82,6 +109,7 @@ function asyncNeutralVoteComment(threadID, commentID, userID) {
 export {
   ACTION_TYPE,
   getCommentsActionCreator,
+  asyncCreateComment,
   asyncUpVoteComment,
   asyncDownVoteComment,
   asyncNeutralVoteComment,

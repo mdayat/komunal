@@ -67,8 +67,13 @@ function Footer({ id, upVotesBy, downVotesBy }) {
     }
   }
 
+  const voteEnabled =
+    authUser === null
+      ? styles.commentFooter__voteDisabled
+      : styles.commentFooter__voteEnabled;
+
   return (
-    <div className={`${styles.commentFooter}`}>
+    <div className={`${styles.commentFooter} ${voteEnabled}`}>
       <div>
         {authUser === null ? (
           <ThumbUpIcon color={liked ? "primary" : "action"} fontSize="small" />

@@ -6,9 +6,9 @@ import {
 
 const ACTION_TYPE = {
   GET_THREAD_DETAIL: "threadDetail/get",
-  UP_VOTE_THREAD: "voteThread/up",
-  DOWN_VOTE_THREAD: "voteThread/down",
-  NEUTRAL_VOTE_THREAD: "voteThread/neutral",
+  UP_VOTE_THREAD: "threadDetail/upVote",
+  DOWN_VOTE_THREAD: "threadDetail/downVote",
+  NEUTRAL_VOTE_THREAD: "threadDetail/neutralVote",
 };
 
 function getThreadDetailActionCreator(threadDetail) {
