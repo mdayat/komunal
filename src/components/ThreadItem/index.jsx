@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { memo } from "react";
 import { Avatar, Divider, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import parse from "html-react-parser";
@@ -15,7 +16,7 @@ const threadItemPropTypes = {
   owner: PropTypes.shape({ ...threadOwner }).isRequired,
 };
 
-function ThreadItem({
+const ThreadItem = memo(function ThreadItem({
   id,
   title,
   body,
@@ -79,7 +80,7 @@ function ThreadItem({
       <Divider sx={{ marginTop: 2 }} />
     </article>
   );
-}
+});
 
 ThreadItem.propTypes = threadItemPropTypes;
 

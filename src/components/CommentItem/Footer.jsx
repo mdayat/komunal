@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { IconButton } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
@@ -24,7 +24,6 @@ const commentItemFooterPropTypes = {
 };
 
 function Footer({ id, upVotesBy, downVotesBy }) {
-  const threadID = useSelector((states) => states.threadDetail.id);
   const authUser = useSelector((states) => states.authUser);
   const dispatch = useDispatch();
 
@@ -49,23 +48,23 @@ function Footer({ id, upVotesBy, downVotesBy }) {
     return { liked, disliked };
   }, [authUser, upVotesBy, downVotesBy]);
 
-  function handleUpVoteComment() {
+  const handleUpVoteComment = useCallback(() => {
     const hasVoted = upVotesBy.includes(authUser.id);
     if (hasVoted) {
-      dispatch(asyncNeutralVoteComment(threadID, id, authUser.id));
+      dispatch(asyncNeutralVoteComment(id));
     } else {
-      dispatch(asyncUpVoteComment(threadID, id, authUser.id));
+      dispatch(asyncUpVoteComment(id));
     }
-  }
+  }, [authUser.id, dispatch, id, upVotesBy]);
 
-  function handleDownVoteComment() {
+  const handleDownVoteComment = useCallback(() => {
     const hasVoted = downVotesBy.includes(authUser.id);
     if (hasVoted) {
-      dispatch(asyncNeutralVoteComment(threadID, id, authUser.id));
+      dispatch(asyncNeutralVoteComment(id));
     } else {
-      dispatch(asyncDownVoteComment(threadID, id, authUser.id));
+      dispatch(asyncDownVoteComment(id));
     }
-  }
+  }, [authUser.id, dispatch, id, downVotesBy]);
 
   const voteEnabled =
     authUser === null

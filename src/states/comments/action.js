@@ -77,8 +77,11 @@ function asyncCreateComment(comment, callback) {
   };
 }
 
-function asyncUpVoteComment(threadID, commentID, userID) {
-  return (dispatch) => {
+function asyncUpVoteComment(commentID) {
+  return (dispatch, getState) => {
+    const threadID = getState().threadDetail.id;
+    const userID = getState().authUser.id;
+
     dispatch(upVoteCommentActionCreator(commentID, userID));
     upVoteComment(threadID, commentID).catch((err) => {
       console.error(err);
@@ -87,8 +90,11 @@ function asyncUpVoteComment(threadID, commentID, userID) {
   };
 }
 
-function asyncDownVoteComment(threadID, commentID, userID) {
-  return (dispatch) => {
+function asyncDownVoteComment(commentID) {
+  return (dispatch, getState) => {
+    const threadID = getState().threadDetail.id;
+    const userID = getState().authUser.id;
+
     dispatch(downVoteCommentActionCreator(commentID, userID));
     downVoteComment(threadID, commentID).catch((err) => {
       console.error(err);
@@ -97,8 +103,11 @@ function asyncDownVoteComment(threadID, commentID, userID) {
   };
 }
 
-function asyncNeutralVoteComment(threadID, commentID, userID) {
-  return (dispatch) => {
+function asyncNeutralVoteComment(commentID) {
+  return (dispatch, getState) => {
+    const threadID = getState().threadDetail.id;
+    const userID = getState().authUser.id;
+
     dispatch(neutralVoteCommentActionCreator(commentID, userID));
     neutralVoteComment(threadID, commentID).catch((err) => {
       console.error(err);

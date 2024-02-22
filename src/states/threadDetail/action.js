@@ -47,8 +47,11 @@ function neutralVoteThreadActionCreator(userID) {
   };
 }
 
-function asyncUpVoteThread(threadID, userID) {
-  return (dispatch) => {
+function asyncUpVoteThread() {
+  return (dispatch, getState) => {
+    const threadID = getState().threadDetail.id;
+    const userID = getState().authUser.id;
+
     dispatch(upVoteThreadActionCreator(userID));
     upVoteThread(threadID).catch((err) => {
       console.error(err);
@@ -57,8 +60,11 @@ function asyncUpVoteThread(threadID, userID) {
   };
 }
 
-function asyncDownVoteThread(threadID, userID) {
-  return (dispatch) => {
+function asyncDownVoteThread() {
+  return (dispatch, getState) => {
+    const threadID = getState().threadDetail.id;
+    const userID = getState().authUser.id;
+
     dispatch(downVoteThreadActionCreator(userID));
     downVoteThread(threadID).catch((err) => {
       console.error(err);
@@ -67,8 +73,11 @@ function asyncDownVoteThread(threadID, userID) {
   };
 }
 
-function asyncNeutralVoteThread(threadID, userID) {
-  return (dispatch) => {
+function asyncNeutralVoteThread() {
+  return (dispatch, getState) => {
+    const threadID = getState().threadDetail.id;
+    const userID = getState().authUser.id;
+
     dispatch(neutralVoteThreadActionCreator(userID));
     neutralVoteThread(threadID).catch((err) => {
       console.error(err);

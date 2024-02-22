@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Avatar, Divider, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import parse from "html-react-parser";
@@ -10,7 +11,6 @@ import { owner as threadOwner } from "../../types/owner";
 import styles from "../../styles/thread.module.css";
 
 const threadDetailPropTypes = {
-  id: threadPropTypes.id,
   title: threadPropTypes.title,
   body: threadPropTypes.body,
   category: threadPropTypes.category,
@@ -20,8 +20,7 @@ const threadDetailPropTypes = {
   owner: PropTypes.shape({ ...threadOwner }),
 };
 
-function ThreadDetail({
-  id,
+const ThreadDetail = memo(function ThreadDetail({
   title,
   body,
   category,
@@ -65,7 +64,6 @@ function ThreadDetail({
       </Typography>
 
       <Footer
-        id={id}
         category={category}
         upVotesBy={upVotesBy}
         downVotesBy={downVotesBy}
@@ -74,7 +72,7 @@ function ThreadDetail({
       <Divider sx={{ marginTop: 2 }} />
     </article>
   );
-}
+});
 
 ThreadDetail.propTypes = threadDetailPropTypes;
 

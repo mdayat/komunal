@@ -59,7 +59,6 @@ function ThreadDetailPage() {
       ) : (
         <>
           <ThreadDetail
-            id={threadDetail.id}
             title={threadDetail.title}
             body={threadDetail.body}
             category={threadDetail.category}

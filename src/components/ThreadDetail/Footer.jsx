@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Chip, IconButton } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
@@ -18,13 +18,12 @@ import styles from "../../styles/thread.module.css";
 const Tooltip = dynamic(() => import("@mui/material/Tooltip"));
 
 const threadFooterPropTypes = {
-  id: threadPropTypes.id,
   category: threadPropTypes.category,
   upVotesBy: threadPropTypes.upVotesBy,
   downVotesBy: threadPropTypes.downVotesBy,
 };
 
-function Footer({ id, category, upVotesBy, downVotesBy }) {
+function Footer({ category, upVotesBy, downVotesBy }) {
   const dispatch = useDispatch();
   const authUser = useSelector((states) => states.authUser);
 
@@ -49,23 +48,23 @@ function Footer({ id, category, upVotesBy, downVotesBy }) {
     return { liked, disliked };
   }, [authUser, upVotesBy, downVotesBy]);
 
-  function handleUpVoteThread() {
+  const handleUpVoteThread = useCallback(() => {
     const hasVoted = upVotesBy.includes(authUser.id);
     if (hasVoted) {
-      dispatch(asyncNeutralVoteThread(id, authUser.id));
+      dispatch(asyncNeutralVoteThread());
     } else {
-      dispatch(asyncUpVoteThread(id, authUser.id));
+      dispatch(asyncUpVoteThread());
     }
-  }
+  }, [authUser.id, dispatch, upVotesBy]);
 
-  function handleDownVoteThread() {
+  const handleDownVoteThread = useCallback(() => {
     const hasVoted = downVotesBy.includes(authUser.id);
     if (hasVoted) {
-      dispatch(asyncNeutralVoteThread(id, authUser.id));
+      dispatch(asyncNeutralVoteThread());
     } else {
-      dispatch(asyncDownVoteThread(id, authUser.id));
+      dispatch(asyncDownVoteThread());
     }
-  }
+  }, [authUser.id, dispatch, downVotesBy]);
 
   const threadFooter__impression =
     authUser === null

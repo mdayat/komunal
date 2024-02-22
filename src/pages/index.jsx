@@ -1,6 +1,6 @@
 import Head from "next/head";
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Typography } from "@mui/material";
 
@@ -17,7 +17,7 @@ const ThreadItem = dynamic(() =>
 );
 const CreateThread = dynamic(() =>
   import("../components/CreateThread").then(
-    (threadItem) => threadItem.CreateThread
+    (createThread) => createThread.CreateThread
   )
 );
 
@@ -60,24 +60,25 @@ export default function Home() {
     );
   }, [dispatch]);
 
-  let threadList = [];
-  if (users.length !== 0 && threads.length !== 0) {
-    threadList = threads.map((thread) => {
-      const threadOwner = getThreadOwner(users, thread.ownerId);
-      // I'm not using spread operator because i don't need "ownerId" property
-      return {
-        id: thread.id,
-        title: thread.title,
-        body: thread.body,
-        category: thread.category,
-        createdAt: thread.createdAt,
-        upVotesBy: thread.upVotesBy,
-        downVotesBy: thread.downVotesBy,
-        totalComments: thread.totalComments,
-        owner: threadOwner,
-      };
-    });
-  }
+  const threadList = useMemo(() => {
+    if (users.length !== 0 && threads.length !== 0) {
+      return threads.map((thread) => {
+        const threadOwner = getThreadOwner(users, thread.ownerId);
+        // I'm not using spread operator because i don't need "ownerId" property
+        return {
+          id: thread.id,
+          title: thread.title,
+          body: thread.body,
+          category: thread.category,
+          createdAt: thread.createdAt,
+          upVotesBy: thread.upVotesBy,
+          downVotesBy: thread.downVotesBy,
+          totalComments: thread.totalComments,
+          owner: threadOwner,
+        };
+      });
+    }
+  }, [threads, users]);
 
   return (
     <>
