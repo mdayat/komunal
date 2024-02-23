@@ -1,11 +1,16 @@
-import Head from "next/head";
+import dynamic from "next/dynamic";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { LoginForm } from "../components/LoginForm";
 import { useInput } from "../hooks/useInput";
 import { asyncSetAuthUser } from "../states/authUser/action";
+
+// Lazy loaded components
+const Head = dynamic(() => import("next/head"));
+const LoginForm = dynamic(() =>
+  import("../components/LoginForm").then((loginForm) => loginForm.LoginForm)
+);
 
 export default function Login() {
   const { push } = useRouter();
@@ -13,9 +18,22 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
+  const preload = useSelector((states) => states.preload);
+  const authUser = useSelector((states) => states.authUser);
+
   const [email, setEmail] = useInput("");
   const [password, setPassword] = useInput("");
   const [passwordVisible, setPasswordVisible] = useState(false);
+
+  if (preload) {
+    return null;
+  }
+
+  // Push back to home page when user is authenticated
+  if (preload === false && authUser !== null) {
+    push("/");
+    return null;
+  }
 
   function setPasswordVisibility() {
     setPasswordVisible(!passwordVisible);

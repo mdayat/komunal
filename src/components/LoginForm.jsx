@@ -1,3 +1,4 @@
+import Link from "next/link";
 import dynamic from "next/dynamic";
 import PropTypes from "prop-types";
 import {
@@ -122,6 +123,10 @@ function LoginForm({
         >
           Login
         </Button>
+
+        <Link href="/register" className={styles.btnLink}>
+          Don&apos;t have an account?
+        </Link>
       </form>
 
       {loading && (
