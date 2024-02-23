@@ -34,11 +34,10 @@ function asyncGetThreadDetailAndComments(threadID, callback) {
 
         dispatch(getThreadDetailActionCreator(threadDetail));
         dispatch(getCommentsActionCreator(comments));
+        callback();
       })
       .catch((err) => {
         console.error(err);
-      })
-      .finally(() => {
         callback();
       });
   };
