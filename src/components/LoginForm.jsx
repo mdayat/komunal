@@ -45,7 +45,7 @@ function LoginForm({
   errorMessage,
   loading,
 }) {
-  const emailHelperText = error ? errorMessage : "Please enter your email";
+  const emailHelperText = error ? errorMessage : "";
   const passwordHelperText = error
     ? errorMessage
     : "Password must contain at least 6 characters";
@@ -65,10 +65,10 @@ function LoginForm({
         <TextField
           fullWidth
           required
-          data-testid="email"
           type="email"
           id="email"
           label="Email"
+          placeholder="Email"
           variant="outlined"
           size="small"
           margin="normal"
@@ -82,9 +82,9 @@ function LoginForm({
         <TextField
           fullWidth
           required
-          data-testid="password"
           id="password"
           label="Password"
+          placeholder="Password"
           variant="outlined"
           size="small"
           margin="normal"

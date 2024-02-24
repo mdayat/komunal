@@ -1,7 +1,7 @@
 import { Provider } from "react-redux";
 
 import { ThreadItem } from "../components/ThreadItem";
-import { ThreadListLoading } from "../components/ThreadListLoading";
+import { Loading as ThreadItemLoading } from "../components/ThreadItem/Loading";
 import { store } from "../states";
 
 const thread = {
@@ -35,7 +35,7 @@ export default {
 };
 
 export const Loading = {
-  render: () => <ThreadListLoading />,
+  render: () => <ThreadItemLoading />,
 };
 
 export const Normal = {

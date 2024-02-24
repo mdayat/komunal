@@ -49,8 +49,8 @@ function RegisterForm({
   errorMessage,
   loading,
 }) {
-  const nameHelperText = error ? errorMessage : "Please enter your name";
-  const emailHelperText = error ? errorMessage : "Please enter your email";
+  const nameHelperText = error ? errorMessage : "";
+  const emailHelperText = error ? errorMessage : "";
   const passwordHelperText = error
     ? errorMessage
     : "Password must contain at least 6 characters";
@@ -70,10 +70,10 @@ function RegisterForm({
         <TextField
           fullWidth
           required
-          data-testid="name"
           type="text"
           id="name"
           label="Name"
+          placeholder="Name"
           variant="outlined"
           size="small"
           margin="normal"
@@ -87,10 +87,10 @@ function RegisterForm({
         <TextField
           fullWidth
           required
-          data-testid="email"
           type="email"
           id="email"
           label="Email"
+          placeholder="Email"
           variant="outlined"
           size="small"
           margin="normal"
@@ -103,9 +103,9 @@ function RegisterForm({
         <TextField
           fullWidth
           required
-          data-testid="password"
           id="password"
           label="Password"
+          placeholder="Password"
           variant="outlined"
           size="small"
           margin="normal"
@@ -142,7 +142,7 @@ function RegisterForm({
           size="medium"
           sx={{ marginTop: 2 }}
         >
-          Login
+          Register
         </Button>
 
         <Link href="/login" className={styles.btnLink}>
