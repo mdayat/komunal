@@ -32,7 +32,7 @@ describe("RegisterForm component", () => {
     expect(passwordInput).toHaveValue("examplepassword");
   });
 
-  it("should handle password typing correctly", async () => {
+  it("should call submitRegister function when login button is clicked", async () => {
     const submitRegister = vi.fn();
     render(<RegisterForm submitRegister={submitRegister} />);
 

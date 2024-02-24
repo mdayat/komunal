@@ -25,7 +25,7 @@ describe("LoginForm component", () => {
     expect(passwordInput).toHaveValue("examplepassword");
   });
 
-  it("should handle password typing correctly", async () => {
+  it("should call submitLogin function when login button is clicked", async () => {
     const submitLogin = vi.fn();
     render(<LoginForm submitLogin={submitLogin} />);
 
