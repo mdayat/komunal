@@ -121,7 +121,7 @@ function LoginForm({
           size="medium"
           sx={{ marginTop: 2 }}
         >
-          Login
+          Sign in
         </Button>
 
         <Link href="/register" className={styles.btnLink}>
